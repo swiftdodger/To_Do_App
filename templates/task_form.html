@@ -1,0 +1,34 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}{{ form.instance.pk|yesno:"Edit Task,Add Task" }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="h4 mb-3">{{ form.instance.pk|yesno:"Edit Task,Add Task" }}</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                {{ form.title }}
+            </div>
+
+            <div class="mb-3">
+                <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+                {{ form.description }}
+            </div>
+
+            <div class="form-check mb-3">
+                {{ form.completed }}
+                <label class="form-check-label" for="{{ form.completed.id_for_label }}">
+                    Completed
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save</button>
+            <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
